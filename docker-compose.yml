@@ -1,0 +1,23 @@
+version: '3'
+services: 
+  db:
+    image: mongo
+    container_name: 'mongo_tg_bot'
+    restart: 'no'
+    env_file: .env
+    environment: 
+      DATABASE_CLIENT: ${DATABASE_CLIENT}
+      DATABASE_NAME: ${DATABASE_NAME}
+      DATABASE_HOST: ${DATABASE_HOST}
+      DATABASE_PORT: ${DATABASE_PORT}
+      DATABASE_USERNAME: ${DATABASE_USERNAME}
+      DATABASE_PASSWORD: ${DATABASE_PASSWORD}
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
+    volumes:
+      - tg_bot_data:/data/db
+    ports:
+      - '27017:27017'
+
+volumes: 
+  tg_bot_data:
