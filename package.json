@@ -1,6 +1,6 @@
 {
-  "name": "tg-bot-test",
-  "version": "0.0.2",
+  "name": "pantano-bot",
+  "version": "0.0.3",
   "description": "Telegram BOT for Pantano Group",
   "main": "index.js",
   "scripts": {
