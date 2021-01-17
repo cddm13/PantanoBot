@@ -14,7 +14,7 @@ const messageSchema = new mongoose.Schema(
   },
   {
     versionKey: false,
-  }
+  },
 );
 
 const Message = mongoose.model('Message', messageSchema);
