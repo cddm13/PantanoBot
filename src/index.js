@@ -1,23 +1,27 @@
 const { Telegraf } = require('telegraf');
 const mongoose = require('mongoose');
 const { DateTime } = require('luxon');
+const { env, database, botToken } = require('./config');
 const BotService = require('./services/bot.service');
 
-require('dotenv').config();
+const user = database.user;
+const password = database.password;
+const dbName = database.name;
+const dbPort = database.port;
+const dbHost = database.host;
+const dbUrl =
+  env !== 'production'
+    ? `mongodb://${user}:${password}@${dbHost}:${dbPort}/${dbName}?authSource=admin`
+    : database.url;
 
-const user = process.env.MONGO_INITDB_ROOT_USERNAME;
-const password = process.env.MONGO_INITDB_ROOT_PASSWORD;
-const db = process.env.DATABASE_NAME;
-const bot = new Telegraf(process.env.BOT_TOKEN);
+console.log(database);
+const bot = new Telegraf(botToken);
 
 mongoose
-  .connect(
-    `mongodb://${user}:${password}@localhost:27017/${db}?authSource=admin`,
-    {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    }
-  )
+  .connect(dbUrl, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
   .then(() => {
     console.log('Connected to DB');
     console.log('BOT initialized');
