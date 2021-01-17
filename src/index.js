@@ -14,7 +14,6 @@ const dbUrl =
     ? `mongodb://${user}:${password}@${dbHost}:${dbPort}/${dbName}?authSource=admin`
     : database.url;
 
-console.log(database);
 const bot = new Telegraf(botToken);
 
 mongoose
