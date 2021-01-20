@@ -23,7 +23,7 @@ mongoose
   })
   .then(() => {
     log.info('Connected to DB');
-    log.info('BOT initialized');
+    log.info('BOT initialized \u{1F916}');
 
     bot.start((ctx) => {
       log.info(`${ctx.botInfo.username} has been activated`);
