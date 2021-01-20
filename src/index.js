@@ -79,7 +79,7 @@ mongoose
           return ctx.reply(`Opción incorrecta, puedes elegir una de las siguientes: 
             -hoy
             -ayer
-            -* (desde inicio de mes)
+            -* (desde inicio del mes)
           `);
       }
       if (!messages || !messages.length) return ctx.reply('No encontré mensajes almacenados para resumen');
