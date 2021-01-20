@@ -40,7 +40,7 @@ mongoose
     });
 
     bot.command('ats', async (ctx) => {
-      if (!ctx.message.reply_to_message) return ctx.reply('No hay nada que agregar \u{1F640} ');
+      if (!ctx.message.reply_to_message) return ctx.reply('\u{1F640} Debes responder a un mensaje para poder agregarlo');
       const { date, text: msg } = ctx.message.reply_to_message;
       if (!ctx.message.reply_to_message.text) return ctx.reply('\u{1F6AB} Solo se puede agregar texto');
 
