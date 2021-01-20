@@ -14,13 +14,7 @@ const dbUrl = env !== 'production'
   ? `mongodb://${user}:${password}@${host}:${port}/${name}?authSource=admin`
   : database.url;
 
-let bot;
-if (env === 'production ') {
-  bot = new Telegraf(botToken);
-  bot.webhookCallback(`${server.herokuUrl}${botToken}`);
-} else {
-  bot = new Telegraf(botToken, { polling: true });
-}
+const bot = new Telegraf(botToken);
 
 mongoose
   .connect(dbUrl, {
@@ -154,7 +148,16 @@ mongoose
     });
     // --- End Practice
 
-    bot.launch();
+    let botConfig = {};
+    if (env === 'production') {
+      botConfig = {
+        webhook: {
+          domain: `${server.herokuUrl}`,
+          port: `${server.port}`,
+        },
+      };
+    }
+    bot.launch(botConfig);
   })
   .catch((err) => {
     log.error(`Error starting database ${err.message}`);
