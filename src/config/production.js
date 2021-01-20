@@ -6,4 +6,7 @@ module.exports = {
     ...defaults.database,
     url: process.env.DATABASE_URL,
   },
+  server: {
+    port: parseInt(process.env.PORT, 10) || 3000,
+  },
 };

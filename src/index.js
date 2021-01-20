@@ -86,6 +86,65 @@ mongoose
       return ctx.reply(response);
     });
 
+    // Practice
+    bot.command('customreply', (ctx) => {
+      ctx.telegram.sendMessage(ctx.message.chat.id, 'This would be a custom reply keyboard', {
+        reply_markup: {
+          keyboard: [[{ text: 'Button' }, { text: 'Button 2' }]],
+          resize_keyboard: true,
+          one_time_keyboard: true,
+        },
+      });
+    });
+
+    bot.command('inlinekb', (ctx) => {
+      ctx.telegram.sendMessage(ctx.message.chat.id, 'This would be a inline keyboard', {
+        reply_markup: {
+          inline_keyboard: [
+            [
+              { text: 'Accept', url: 'google.com' },
+              { text: 'Ignore', url: 'google.com' },
+              { text: 'Callback', callback_data: 'CB' },
+              { text: 'Otro', callback_data: 'OT' },
+            ],
+            [{ text: 'Cancel All', url: 'google.com' }],
+          ],
+        },
+      });
+    });
+
+    bot.action('OT', (ctx) => {
+      ctx.deleteMessage();
+      ctx.telegram.sendMessage(ctx.chat.id, `This action is ${ctx.match}`, {
+        reply_markup: {
+          inline_keyboard: [[{ text: 'Go Back to Menu', callback_data: 'back' }]],
+        },
+      });
+    });
+
+    bot.action('CB', (ctx) => {
+      ctx.deleteMessage();
+      ctx.telegram.sendMessage(ctx.chat.id, `This action is ${ctx.match}`);
+    });
+
+    bot.action('back', (ctx) => {
+      ctx.deleteMessage();
+      ctx.telegram.sendMessage(ctx.chat.id, 'This would be a inline keyboard', {
+        reply_markup: {
+          inline_keyboard: [
+            [
+              { text: 'Accept', url: 'google.com' },
+              { text: 'Ignore', url: 'google.com' },
+              { text: 'Callback', callback_data: 'CB' },
+              { text: 'Otro', callback_data: 'OT' },
+            ],
+            [{ text: 'Cancel All', url: 'google.com' }],
+          ],
+        },
+      });
+    });
+    // --- End Practice
+
     bot.launch();
   })
   .catch((err) => {
