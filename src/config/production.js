@@ -8,5 +8,6 @@ module.exports = {
   },
   server: {
     port: parseInt(process.env.PORT, 10) || 3000,
+    herokuUrl: process.env.HEROKU_URL || 'herokuapp',
   },
 };

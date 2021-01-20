@@ -3,7 +3,9 @@ const log = require('pino')();
 const { Telegraf } = require('telegraf');
 const { DateTime } = require('luxon');
 const BotService = require('./services/bot.service');
-const { env, database, botToken } = require('./config');
+const {
+  env, database, botToken, server,
+} = require('./config');
 
 const {
   user, password, name, port, host,
@@ -11,7 +13,14 @@ const {
 const dbUrl = env !== 'production'
   ? `mongodb://${user}:${password}@${host}:${port}/${name}?authSource=admin`
   : database.url;
-const bot = new Telegraf(botToken);
+
+let bot;
+if (env === 'production ') {
+  bot = new Telegraf(botToken);
+  bot.webhookCallback(`${server.herokuUrl}${botToken}`);
+} else {
+  bot = new Telegraf(botToken, { polling: true });
+}
 
 mongoose
   .connect(dbUrl, {
