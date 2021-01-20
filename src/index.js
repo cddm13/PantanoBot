@@ -44,11 +44,11 @@ mongoose
       const { date, text: msg } = ctx.message.reply_to_message;
       if (!ctx.message.reply_to_message.text) return ctx.reply('\u{1F6AB} Solo se puede agregar texto');
 
-      if (ctx.message.reply_to_message.from.is_bot) return ctx.reply('\u{1F6AB} No se deben agregar los mensajes de un bot al resumen');
+      if (ctx.message.reply_to_message.from.is_bot) return ctx.reply('\u{1F6AB} No se pueden agregar los mensajes de un bot al resumen');
       const d = new Date(date * 1000).toLocaleString('es-CL', {
         timeZone: 'America/Santiago',
       });
-      log.info(`Ok saving ${msg} with date ${d} into the database`);
+      log.info(`Ok saving: ${msg} with date ${d} into the database`);
       await BotService.saveMessage(msg, date * 1000);
       return log.info('message saved.');
     });
